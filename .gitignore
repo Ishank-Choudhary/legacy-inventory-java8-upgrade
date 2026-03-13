@@ -1,7 +1,12 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+
+### Java ###
+*.class
+target/
+build/
 
 ### Eclipse ###
 .apt_generated
@@ -11,9 +16,6 @@ out/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,7 +27,8 @@ bin/
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
+### Logs ###
+*.log
+
+### Mac ###
 .DS_Store
-# Java build artifacts
-*.class
