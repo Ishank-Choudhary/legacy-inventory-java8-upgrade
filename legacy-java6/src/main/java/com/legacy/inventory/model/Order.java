@@ -1,8 +1,8 @@
 package com.legacy.inventory.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,23 +12,24 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
     private int id;
     private Customer customer;
-    private Date orderDate;
+    private LocalDateTime orderDate;
     private String status;
     private List<OrderItem> items;
     private String notes;
 
     public Order() {
         this.items = new ArrayList<OrderItem>();
-        this.orderDate = new Date();
+        this.orderDate = LocalDateTime.now(); // sets current date and time of order creation
         this.status = "CREATED";
     }
 
     public Order(int id, Customer customer) {
         this.id = id;
         this.customer = customer;
-        this.orderDate = new Date();
+        this.orderDate =LocalDateTime.now();
         this.status = "CREATED";
         this.items = new ArrayList<OrderItem>();
     }
@@ -49,11 +50,11 @@ public class Order implements Serializable {
         this.customer = customer;
     }
 
-    public Date getOrderDate() {
+    public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
     }
 
