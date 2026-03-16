@@ -38,9 +38,10 @@ public class InventoryApplication {
         this.orderService = new OrderService(orderRepository, productRepository, inventoryService);
         this.reportService = new ReportService(productRepository, orderRepository, inventoryService);
 
-        seedData();
+        seedData(); // adding sample data at the end of the file.
     }
 
+    // this is the main method starting the project
     public static void main(String[] args) {
         InventoryApplication application = new InventoryApplication();
         application.start();

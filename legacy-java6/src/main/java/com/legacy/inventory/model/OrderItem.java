@@ -60,15 +60,14 @@ public class OrderItem implements Serializable {
         return unitPrice * quantity;
     }
 
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("OrderItem{");
-        sb.append("productId=").append(productId);
-        sb.append(", productName='").append(productName).append('\'');
-        sb.append(", quantity=").append(quantity);
-        sb.append(", unitPrice=").append(unitPrice);
-        sb.append(", lineTotal=").append(getLineTotal());
-        sb.append('}');
-        return sb.toString();
+        return "OrderItem{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", lineTotal=" + getLineTotal() +
+                '}';
     }
 }

@@ -66,15 +66,14 @@ public class Customer implements Serializable {
         this.address = address;
     }
 
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Customer{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", phone='").append(phone).append('\'');
-        sb.append(", address='").append(address).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Customer{"+
+                "id="+id+
+                ", name='"+name+ '\'' +
+                ", email='"+email+'\'' +
+                ", phone='"+phone+'\'' +
+                 ", address='"+address+'\'' +
+                '}';
     }
 }
