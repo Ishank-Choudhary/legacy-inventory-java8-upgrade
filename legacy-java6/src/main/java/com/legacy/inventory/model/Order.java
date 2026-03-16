@@ -102,22 +102,16 @@ public class Order implements Serializable {
         }
         return total;
     }
-
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Order{");
-        sb.append("id=").append(id);
-        if (customer != null) {
-            sb.append(", customer=").append(customer.getName());
-        }
-        sb.append(", orderDate=").append(orderDate);
-        sb.append(", status='").append(status).append('\'');
-        sb.append(", items=").append(items.size());
-        sb.append(", total=").append(calculateTotalAmount());
-        if (notes != null) {
-            sb.append(", notes='").append(notes).append('\'');
-        }
-        sb.append('}');
-        return sb.toString();
+       return "Order{"+
+        "id="+id+
+        (customer != null ? ", customer=" + customer.getName() : "")+
+        ", orderDate="+orderDate+
+        ", status='"+status+'\''+
+        ", items="+items.size()+
+        ", total="+calculateTotalAmount()+
+         (notes != null ? ", notes='"+notes+'\'':"") +
+        '}';
     }
 }

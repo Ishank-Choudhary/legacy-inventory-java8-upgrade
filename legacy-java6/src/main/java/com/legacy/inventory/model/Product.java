@@ -97,7 +97,7 @@ public class Product implements Serializable {
 
     public void increaseQuantity(int amount) {
         if (amount > 0) {
-            this.quantity = this.quantity + amount;
+            this.quantity += amount;
         }
     }
 
@@ -108,29 +108,23 @@ public class Product implements Serializable {
         if (this.quantity < amount) {
             return false;
         }
-        this.quantity = this.quantity - amount;
+        this.quantity -= amount;
         return true;
     }
 
     public boolean isLowStock(int threshold) {
         return this.quantity <= threshold;
     }
-
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Product{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", category='").append(category).append('\'');
-        sb.append(", price=").append(price);
-        sb.append(", quantity=").append(quantity);
-        if (description != null) {
-            sb.append(", description='").append(description).append('\'');
-        }
-        if (supplierName != null) {
-            sb.append(", supplierName='").append(supplierName).append('\'');
-        }
-        sb.append('}');
-        return sb.toString();
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", description='" + description + '\'' +
+                ", supplierName='" + supplierName + '\'' +
+                '}';
     }
 }

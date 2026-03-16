@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * In memory product repository.
+ * synchronized is used in the methods to make the method thread safe, it ensures that only one thread at a time can execute on the same method instance
  */
 public class ProductRepository {
 
@@ -29,7 +30,7 @@ public class ProductRepository {
         }
 
         Product existing = findById(product.getId());
-        if (existing == null) {
+        if (existing == null) { // if product does not exist then add the product
             products.add(product);
         } else {
             existing.setName(product.getName());
