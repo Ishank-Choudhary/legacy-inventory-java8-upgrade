@@ -2,10 +2,17 @@ package com.legacy.inventory.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * Legacy date utility using java.util.Date.
+ * This class provides common operations related to date formatting, parsing, and getting the current date so that the same logic does not
+ * have to be written repeatedly in  diff parts of the app.
  */
 public final class DateUtil {
 
@@ -14,39 +21,36 @@ public final class DateUtil {
     private DateUtil() {
     }
 
-    public static String format(Date date) {
-        return format(date, DEFAULT_PATTERN);
+    // we are getting a data from the user for an order and we are formatting it and returning in readable form
+    public static String format(LocalDateTime localDateTime) {
+        return format(localDateTime, DEFAULT_PATTERN);
     }
 
-    public static String format(Date date, String pattern) {
-        if (date == null) {
+    public static String format(LocalDateTime localDateTime, String pattern) {
+        if (localDateTime == null) {
             return "";
         }
         if (!ValidationUtil.hasText(pattern)) {
             pattern = DEFAULT_PATTERN;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        return sdf.format(date);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+        return dtf.format(localDateTime);
     }
 
-    public static Date parse(String text) {
+    public static LocalDateTime parse(String text) {
         return parse(text, DEFAULT_PATTERN);
     }
 
-    public static Date parse(String text, String pattern) {
+    public static LocalDateTime parse(String text, String pattern) {
         if (!ValidationUtil.hasText(text)) {
             return null;
         }
         if (!ValidationUtil.hasText(pattern)) {
             pattern = DEFAULT_PATTERN;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        try {
-            return sdf.parse(text);
-        } catch (ParseException e) {
-            System.out.println("Could not parse date: " + text + " using pattern " + pattern);
-            return null;
-        }
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(pattern);
+        return LocalDateTime.parse(text, dtf);
     }
 
     public static Date now() {

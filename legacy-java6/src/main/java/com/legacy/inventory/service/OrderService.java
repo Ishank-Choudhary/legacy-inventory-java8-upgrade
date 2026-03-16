@@ -8,6 +8,7 @@ import com.legacy.inventory.repository.OrderRepository;
 import com.legacy.inventory.repository.ProductRepository;
 import com.legacy.inventory.util.ValidationUtil;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class OrderService {
 
         Order order = new Order();
         order.setCustomer(customer);
-        order.setOrderDate(new Date());
+        order.setOrderDate(LocalDateTime.now());
         order.setStatus("CREATED");
         order.setItems(new ArrayList<OrderItem>());
         return orderRepository.save(order);
