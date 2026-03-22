@@ -101,20 +101,21 @@ public final class ConsolePrinter {
             return;
         }
         printSeparator();
-        for (int i = 0; i < orders.size(); i++) {
-            Order order = orders.get(i);
-            System.out.println("Order #" + order.getId() + " | Customer=" + order.getCustomer().getName()
-                    + " | Date=" + DateUtil.format(order.getOrderDate())
-                    + " | Status=" + order.getStatus()
-                    + " | Total=" + order.calculateTotalAmount());
-            List<OrderItem> items = order.getItems();
-            for (int j = 0; j < items.size(); j++) {
-                OrderItem item = items.get(j);
-                System.out.println("   - " + item.getProductName() + " x" + item.getQuantity()
-                        + " @" + item.getUnitPrice() + " = " + item.getLineTotal());
-            }
-        }
+        orders.forEach(order -> {
+            printOrder(order);
+            order.getItems().forEach(ConsolePrinter::printItem);
+        });
         printSeparator();
+    }
+    private static void printOrder(Order order){
+        System.out.println("Order #" + order.getId() + " | Customer=" + order.getCustomer().getName()
+                + " | Date=" + DateUtil.format(order.getOrderDate())
+                + " | Status=" + order.getStatus()
+                + " | Total=" + order.calculateTotalAmount());
+    }
+    private static void printItem(OrderItem item){
+        System.out.println("   - " + item.getProductName() + " x" + item.getQuantity()
+                + " @" + item.getUnitPrice() + " = " + item.getLineTotal());
     }
 
     public static void printSalesRecords(List<ReportService.SalesRecord> records) {
