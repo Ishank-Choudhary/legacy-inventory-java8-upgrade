@@ -127,12 +127,13 @@ public final class ConsolePrinter {
         printSeparator();
         System.out.println("ProductId | ProductName | SoldQty | Revenue");
         printSeparator();
-        for (int i = 0; i < records.size(); i++) {
-            ReportService.SalesRecord r = records.get(i);
-            System.out.println(r.getProductId() + " | " + r.getProductName() + " | "
-                    + r.getSoldQuantity() + " | " + r.getRevenue());
-        }
+        records.forEach(ConsolePrinter::printSalesRecord);
         printSeparator();
+    }
+
+    private static void printSalesRecord(ReportService.SalesRecord r){
+        System.out.println(r.getProductId() + " | " + r.getProductName() + " | "
+                + r.getSoldQuantity() + " | " + r.getRevenue());
     }
 
     public static void printMessage(String message) {
