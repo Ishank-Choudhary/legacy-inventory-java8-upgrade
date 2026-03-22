@@ -3,6 +3,7 @@ package com.legacy.inventory.util;
 import com.legacy.inventory.model.Order;
 import com.legacy.inventory.model.OrderItem;
 import com.legacy.inventory.model.Product;
+import com.legacy.inventory.service.ProductService;
 import com.legacy.inventory.service.ReportService;
 
 import java.util.List;
@@ -85,12 +86,13 @@ public final class ConsolePrinter {
         System.out.println("ID | Name | Category | Price | Qty | Supplier");
         printSeparator();
 
-        for (int i = 0; i < products.size(); i++) {
-            Product p = products.get(i);
-            System.out.println(p.getId() + " | " + p.getName() + " | " + p.getCategory() + " | "
-                    + p.getPrice() + " | " + p.getQuantity() + " | " + p.getSupplierName());
-        }
+        // conversion
+        products.forEach(ConsolePrinter::printProduct); // using printProduct method reference here
         printSeparator();
+    }
+    private static void printProduct(Product p){
+        System.out.println(p.getId() + " | " + p.getName() + " | " + p.getCategory() + " | "
+                + p.getPrice() + " | " + p.getQuantity() + " | " + p.getSupplierName());
     }
 
     public static void printOrders(List<Order> orders) {
@@ -99,20 +101,21 @@ public final class ConsolePrinter {
             return;
         }
         printSeparator();
-        for (int i = 0; i < orders.size(); i++) {
-            Order order = orders.get(i);
-            System.out.println("Order #" + order.getId() + " | Customer=" + order.getCustomer().getName()
-                    + " | Date=" + DateUtil.format(order.getOrderDate())
-                    + " | Status=" + order.getStatus()
-                    + " | Total=" + order.calculateTotalAmount());
-            List<OrderItem> items = order.getItems();
-            for (int j = 0; j < items.size(); j++) {
-                OrderItem item = items.get(j);
-                System.out.println("   - " + item.getProductName() + " x" + item.getQuantity()
-                        + " @" + item.getUnitPrice() + " = " + item.getLineTotal());
-            }
-        }
+        orders.forEach(order -> {
+            printOrder(order);
+            order.getItems().forEach(ConsolePrinter::printItem);
+        });
         printSeparator();
+    }
+    private static void printOrder(Order order){
+        System.out.println("Order #" + order.getId() + " | Customer=" + order.getCustomer().getName()
+                + " | Date=" + DateUtil.format(order.getOrderDate())
+                + " | Status=" + order.getStatus()
+                + " | Total=" + order.calculateTotalAmount());
+    }
+    private static void printItem(OrderItem item){
+        System.out.println("   - " + item.getProductName() + " x" + item.getQuantity()
+                + " @" + item.getUnitPrice() + " = " + item.getLineTotal());
     }
 
     public static void printSalesRecords(List<ReportService.SalesRecord> records) {
@@ -124,12 +127,13 @@ public final class ConsolePrinter {
         printSeparator();
         System.out.println("ProductId | ProductName | SoldQty | Revenue");
         printSeparator();
-        for (int i = 0; i < records.size(); i++) {
-            ReportService.SalesRecord r = records.get(i);
-            System.out.println(r.getProductId() + " | " + r.getProductName() + " | "
-                    + r.getSoldQuantity() + " | " + r.getRevenue());
-        }
+        records.forEach(ConsolePrinter::printSalesRecord);
         printSeparator();
+    }
+
+    private static void printSalesRecord(ReportService.SalesRecord r){
+        System.out.println(r.getProductId() + " | " + r.getProductName() + " | "
+                + r.getSoldQuantity() + " | " + r.getRevenue());
     }
 
     public static void printMessage(String message) {
