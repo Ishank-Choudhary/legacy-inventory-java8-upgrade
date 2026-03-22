@@ -3,6 +3,7 @@ package com.legacy.inventory.util;
 import com.legacy.inventory.model.Order;
 import com.legacy.inventory.model.OrderItem;
 import com.legacy.inventory.model.Product;
+import com.legacy.inventory.service.ProductService;
 import com.legacy.inventory.service.ReportService;
 
 import java.util.List;
@@ -85,12 +86,13 @@ public final class ConsolePrinter {
         System.out.println("ID | Name | Category | Price | Qty | Supplier");
         printSeparator();
 
-        for (int i = 0; i < products.size(); i++) {
-            Product p = products.get(i);
-            System.out.println(p.getId() + " | " + p.getName() + " | " + p.getCategory() + " | "
-                    + p.getPrice() + " | " + p.getQuantity() + " | " + p.getSupplierName());
-        }
+        // conversion
+        products.forEach(ConsolePrinter::printProduct); // using printProduct method reference here
         printSeparator();
+    }
+    private static void printProduct(Product p){
+        System.out.println(p.getId() + " | " + p.getName() + " | " + p.getCategory() + " | "
+                + p.getPrice() + " | " + p.getQuantity() + " | " + p.getSupplierName());
     }
 
     public static void printOrders(List<Order> orders) {
